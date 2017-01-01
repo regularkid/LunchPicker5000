@@ -117,17 +117,26 @@ function UpdateUserInfo(localSocketId, userInfos) {
     }
   });
   
-  var percent = (numReady / numTotal) * 100;
+  var percent = 0;
+  if (numTotal > 0) {
+    percent = (numReady / numTotal) * 100;
+  }
+  
   $(".progress-bar").width(percent.toString() + "%");
   if (percent == 100) {
     $(".progress-bar").removeClass("progress-bar-info");
     $(".progress-bar").addClass("progress-bar-success");
-    $("#readyText").text(numReady.toString() + "/" + numTotal.toString() + " Ready... Let's go! Meet up in the lobby!");
+    $("#readyText").text(numReady.toString() + "/" + numTotal.toString() + " Ready - Let's go! Meet in the upstairs lobby!");
   }
   else {
     $(".progress-bar").removeClass("progress-bar-success");
     $(".progress-bar").addClass("progress-bar-info");
-    $("#readyText").text(numReady.toString() + "/" + numTotal.toString() + " Ready");
+    if (numTotal > 0) {
+      $("#readyText").text(numReady.toString() + "/" + numTotal.toString() + " Ready");
+    }
+    else {
+      $("#readyText").text("0/0 Ready");
+    }
   }
 }
 
